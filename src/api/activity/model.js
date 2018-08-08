@@ -1,38 +1,51 @@
 import mongoose, { Schema } from 'mongoose'
 
+const categories = ['Sport', 'Languages', 'Traveling', 'Hangout', 'Shopping', 'Computer Games', 'Entertainment', 'Other']
+
 const activitySchema = new Schema({
   userId: {
-    type: String
-  },
-  creationDate: {
-    type: String
+    type: String,
+    required: true
   },
   title: {
-    type: String
+    type: String,
+    required: true,
+    minlength: 2,
+    trim: true
   },
   description: {
-    type: String
+    type: String,
+    trim: true
   },
-  categoty: {
-    type: String
+  category: {
+    type: {
+      type: String,
+      enum: categories,
+      default: 'user',
+      index: true,
+      required: true
+    }
   },
-  subCategory: {
-    type: String
+  keyWords: {
+    type: [[String]]
   },
   level: {
-    type: String
+    type: Number
   },
   isExpert: {
-    type: String
+    type: Boolean
   },
   location: {
-    type: String
+    type: {
+      type: String
+    },
+    coordinates: []
   },
   radius: {
-    type: String
+    type: Number
   },
   price: {
-    type: String
+    type: Number
   }
 }, {
   timestamps: true,
@@ -48,11 +61,10 @@ activitySchema.methods = {
       // simple view
       id: this.id,
       userId: this.userId,
-      creationDate: this.creationDate,
       title: this.title,
       description: this.description,
-      categoty: this.categoty,
-      subCategory: this.subCategory,
+      category: this.category,
+      keyWords: this.keyWords,
       level: this.level,
       isExpert: this.isExpert,
       location: this.location,
@@ -68,6 +80,8 @@ activitySchema.methods = {
     } : view
   }
 }
+
+activitySchema.index({ availableAt: '2dsphere' })
 
 const model = mongoose.model('Activity', activitySchema)
 

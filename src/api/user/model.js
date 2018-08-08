@@ -33,6 +33,18 @@ const userSchema = new Schema({
   picture: {
     type: String,
     trim: true
+  },
+  about: {
+    type: String,
+    trim: true
+  },
+  credit: {
+    type: Number,
+    default: 0
+  },
+  friends: {
+    type: [[String]],
+    default: 0
   }
 }, {
   timestamps: true

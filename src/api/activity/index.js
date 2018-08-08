@@ -7,7 +7,7 @@ import { schema } from './model'
 export Activity, { schema } from './model'
 
 const router = new Router()
-const { userId, creationDate, title, description, categoty, subCategory, level, isExpert, location, radius, price } = schema.tree
+const { userId, title, description, category, keyWords, level, isExpert, location, radius, price } = schema.tree
 
 /**
  * @api {post} /activities Create activity
@@ -16,11 +16,10 @@ const { userId, creationDate, title, description, categoty, subCategory, level, 
  * @apiPermission master
  * @apiParam {String} access_token master access token.
  * @apiParam userId Activity's userId.
- * @apiParam creationDate Activity's creationDate.
  * @apiParam title Activity's title.
  * @apiParam description Activity's description.
- * @apiParam categoty Activity's categoty.
- * @apiParam subCategory Activity's subCategory.
+ * @apiParam category Activity's categoty.
+ * @apiParam keyWords Activity's keyWords.
  * @apiParam level Activity's level.
  * @apiParam isExpert Activity's isExpert.
  * @apiParam location Activity's location.
@@ -33,7 +32,7 @@ const { userId, creationDate, title, description, categoty, subCategory, level, 
  */
 router.post('/',
   master(),
-  body({ userId, creationDate, title, description, categoty, subCategory, level, isExpert, location, radius, price }),
+  body({ userId, title, description, category, keyWords, level, isExpert, location, radius, price }),
   create)
 
 /**
@@ -74,11 +73,10 @@ router.get('/:id',
  * @apiPermission master
  * @apiParam {String} access_token master access token.
  * @apiParam userId Activity's userId.
- * @apiParam creationDate Activity's creationDate.
  * @apiParam title Activity's title.
  * @apiParam description Activity's description.
- * @apiParam categoty Activity's categoty.
- * @apiParam subCategory Activity's subCategory.
+ * @apiParam category Activity's categoty.
+ * @apiParam keyWords Activity's keyWords.
  * @apiParam level Activity's level.
  * @apiParam isExpert Activity's isExpert.
  * @apiParam location Activity's location.
@@ -91,7 +89,7 @@ router.get('/:id',
  */
 router.put('/:id',
   master(),
-  body({ userId, creationDate, title, description, categoty, subCategory, level, isExpert, location, radius, price }),
+  body({ userId, title, description, category, keyWords, level, isExpert, location, radius, price }),
   update)
 
 /**
